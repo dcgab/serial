@@ -96,13 +96,13 @@ Serial::isOpen () const
 }
 
 size_t
-Serial::available ()
+Serial::available () const
 {
   return pimpl_->available ();
 }
 
 bool
-Serial::waitReadable ()
+Serial::waitReadable () const
 {
   serial::Timeout timeout(pimpl_->getTimeout ());
   return pimpl_->waitReadable(timeout.read_timeout_constant);
@@ -121,14 +121,14 @@ Serial::read_ (uint8_t *buffer, size_t size)
 }
 
 size_t
-Serial::read (uint8_t *buffer, size_t size)
+Serial::read (uint8_t *buffer, size_t size) const
 {
   ScopedReadLock lock(this->pimpl_);
   return this->pimpl_->read (buffer, size);
 }
 
 size_t
-Serial::read (std::vector<uint8_t> &buffer, size_t size)
+Serial::read (std::vector<uint8_t> &buffer, size_t size) const
 {
   ScopedReadLock lock(this->pimpl_);
   uint8_t *buffer_ = new uint8_t[size];
@@ -148,7 +148,7 @@ Serial::read (std::vector<uint8_t> &buffer, size_t size)
 }
 
 size_t
-Serial::read (std::string &buffer, size_t size)
+Serial::read (std::string &buffer, size_t size) const
 {
   ScopedReadLock lock(this->pimpl_);
   uint8_t *buffer_ = new uint8_t[size];
@@ -166,7 +166,7 @@ Serial::read (std::string &buffer, size_t size)
 }
 
 string
-Serial::read (size_t size)
+Serial::read (size_t size) const
 {
   std::string buffer;
   this->read (buffer, size);
@@ -250,7 +250,7 @@ Serial::readlines (size_t size, string eol)
 }
 
 size_t
-Serial::write (const string &data)
+Serial::write (const string &data) const
 {
   ScopedWriteLock lock(this->pimpl_);
   return this->write_ (reinterpret_cast<const uint8_t*>(data.c_str()),
@@ -258,21 +258,21 @@ Serial::write (const string &data)
 }
 
 size_t
-Serial::write (const std::vector<uint8_t> &data)
+Serial::write (const std::vector<uint8_t> &data) const
 {
   ScopedWriteLock lock(this->pimpl_);
   return this->write_ (&data[0], data.size());
 }
 
 size_t
-Serial::write (const uint8_t *data, size_t size)
+Serial::write (const uint8_t *data, size_t size) const
 {
   ScopedWriteLock lock(this->pimpl_);
   return this->write_(data, size);
 }
 
 size_t
-Serial::write_ (const uint8_t *data, size_t length)
+Serial::write_ (const uint8_t *data, size_t length) const
 {
   return pimpl_->write (data, length);
 }

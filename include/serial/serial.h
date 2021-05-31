@@ -217,14 +217,14 @@ public:
 
   /*! Return the number of characters in the buffer. */
   size_t
-  available ();
+  available () const;
 
   /*! Block until there is serial data to read or read_timeout_constant
    * number of milliseconds have elapsed. The return value is true when
    * the function exits with the port in a readable state, false otherwise
    * (due to timeout or select interruption). */
   bool
-  waitReadable ();
+  waitReadable () const;
 
   /*! Block for a period of time corresponding to the transmission time of
    * count characters at present serial settings. This may be used in con-
@@ -262,7 +262,7 @@ public:
    * \throw serial::SerialException
    */
   size_t
-  read (uint8_t *buffer, size_t size);
+  read (uint8_t *buffer, size_t size) const;
 
   /*! Read a given amount of bytes from the serial port into a give buffer.
    *
@@ -276,7 +276,7 @@ public:
    * \throw serial::SerialException
    */
   size_t
-  read (std::vector<uint8_t> &buffer, size_t size = 1);
+  read (std::vector<uint8_t> &buffer, size_t size = 1) const;
 
   /*! Read a given amount of bytes from the serial port into a give buffer.
    *
@@ -290,7 +290,7 @@ public:
    * \throw serial::SerialException
    */
   size_t
-  read (std::string &buffer, size_t size = 1);
+  read (std::string &buffer, size_t size = 1) const;
 
   /*! Read a given amount of bytes from the serial port and return a string
    *  containing the data.
@@ -303,7 +303,7 @@ public:
    * \throw serial::SerialException
    */
   std::string
-  read (size_t size = 1);
+  read (size_t size = 1) const;
 
   /*! Reads in a line or until a given delimiter has been processed.
    *
@@ -369,7 +369,7 @@ public:
    * \throw serial::IOException
    */
   size_t
-  write (const uint8_t *data, size_t size);
+  write (const uint8_t *data, size_t size) const;
 
   /*! Write a string to the serial port.
    *
@@ -384,7 +384,7 @@ public:
    * \throw serial::IOException
    */
   size_t
-  write (const std::vector<uint8_t> &data);
+  write (const std::vector<uint8_t> &data) const;
 
   /*! Write a string to the serial port.
    *
@@ -399,7 +399,7 @@ public:
    * \throw serial::IOException
    */
   size_t
-  write (const std::string &data);
+  write (const std::string &data) const;
 
   /*! Sets the serial port identifier.
    *
@@ -665,7 +665,7 @@ private:
   read_ (uint8_t *buffer, size_t size);
   // Write common function
   size_t
-  write_ (const uint8_t *data, size_t length);
+  write_ (const uint8_t *data, size_t length) const;
 
 };
 
